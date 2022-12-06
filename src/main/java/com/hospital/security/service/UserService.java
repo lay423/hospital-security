@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
-    @Value("${jwt.token.secret")
+    @Value("${jwt.token.secret}")
     private String secretKey;
 
-    private final long expiredTimeMs = 1000L * 60 * 60;
+    private final Long expiredTimeMs = 1000 * 60 * 60l;
     public String login(String userName, String password) {
-        return JwtTokenUtil.createToken(userName, secretKey, expiredTimeMs);
+        return JwtTokenUtil.createToken("jun", secretKey, expiredTimeMs);
     }
 }

@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/users")
 @RequiredArgsConstructor
 public class UserController {
+
     private final UserService userService;
+
     @PostMapping("/login")
-    public ResponseEntity<UserRoginResponse> login(@RequestBody UserLoginRequest userLoginRequest) {
-        String token = userService.login(userLoginRequest.getUserName(), userLoginRequest.getPassword());
-        return ResponseEntity.ok().body(new UserRoginResponse(token));
+    public ResponseEntity<String> login() {
+        return ResponseEntity.ok().body(userService.login("", ""));
     }
 }

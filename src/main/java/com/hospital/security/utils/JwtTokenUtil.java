@@ -4,28 +4,26 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.Base64;
 import java.util.Date;
 
 public class JwtTokenUtil {
-    private static Claims extractClaims(String token, String key) {
-        return Jwts.parser().setSigningKey(key).parseClaimsJws(token).getBody();
+    public static boolean isExpired(String token, String secretKey) {
+        // expired가 지금보다 전에 됐으면 true
+        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token)
+                .getBody()
+                .getExpiration()
+                .before(new Date());
     }
-
-    public static boolean isExpired(String token, String secretkey) {
-        // expire timestamp를 return함
-        Date expiredDate = extractClaims(token, secretkey).getExpiration();
-        return expiredDate.before(new Date());
-    }
-    public static String createToken(String userName, String key, long expireTimeMs) {
-        Claims claims = Jwts.claims(); // 일종의 map
+    public static String createToken(String userName, String key, Long expiredUntilMs) {
+        Claims claims = Jwts.claims();
         claims.put("userName", userName);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expireTimeMs))
+                .setExpiration(new Date(System.currentTimeMillis() + expiredUntilMs))
                 .signWith(SignatureAlgorithm.HS256, key)
-                .compact()
-                ;
+                .compact();
     }
 }
