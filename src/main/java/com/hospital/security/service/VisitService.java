@@ -65,4 +65,19 @@ public class VisitService {
                 .collect(Collectors.toList());
         return visits;
     }
+
+    public List<VisitDto> findByHospitalId(Integer id) {
+        Hospital hospital = hospitalRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 병원이 없습니다."));
+
+        List<VisitDto> visits = visitRepository.findAllByHospital(hospital)
+                .stream().map(visit -> VisitDto.builder()
+                        .id(visit.getId())
+                        .hospitalName(visit.getHospital().getHospitalName())
+                        .userName(visit.getUser().getUsername())
+                        .diseaseName(visit.getDisease().getName())
+                        .build())
+                .collect(Collectors.toList());
+        return visits;
+    }
 }

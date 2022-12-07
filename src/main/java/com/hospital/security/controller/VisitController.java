@@ -36,4 +36,9 @@ public class VisitController {
         return ResponseEntity.ok().body(visitService.findByUserId(id.longValue()));
     }
 
+    @GetMapping("/hospitals/{id}")
+    private ResponseEntity<List<VisitDto>> getVisitsByHospitalId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(visitService.findByHospitalId(id));
+    }
+
 }
