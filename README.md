@@ -1,8 +1,12 @@
 # hospital-security
-POST /api/v1/login 토큰 발급
-POST /api/v1/reviews 토큰 인증
 
-GET /api/v1/visits 방명록 조회
-POST /api/v1/visits 방명록 등록
+#### Token 인증
+1. `POST /api/v1/login` 토큰 발급
+2. `POST /api/v1/reviews` 토큰 인증
+
+
+#### 방명록 등록, 조회
+1. `GET /api/v1/visits` 방명록 조회
+2. `POST /api/v1/visits` 방명록 등록
 
 ![er](https://user-images.githubusercontent.com/41409287/206075080-5f54839c-5676-4f17-bda7-3fa1ad9a5464.PNG)
