@@ -6,9 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -22,6 +21,9 @@ public class User {
     private Long id;
     private String username;
     private String password;
+
+    @OneToMany(mappedBy = "hospital", fetch = FetchType.LAZY)
+    private List<Visit> visits;
 
 
     public static ResponseDto of(User user) {

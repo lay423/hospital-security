@@ -11,6 +11,7 @@ import com.hospital.security.repository.HospitalRepository;
 import com.hospital.security.repository.UserRepository;
 import com.hospital.security.repository.VisitRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class VisitService {
 
@@ -46,5 +48,21 @@ public class VisitService {
                 .amount(requestDto.getAmount())
                 .build();
         return Visit.toDto(visitRepository.save(visit));
+    }
+
+    public List<VisitDto> findByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(()->new IllegalArgumentException("해당 유저가 없습니다."));
+        log.info("user:{}", user);
+
+        List<VisitDto> visits = visitRepository.findAllByUser(user)
+                .stream().map(visit -> VisitDto.builder()
+                        .id(visit.getId())
+                        .hospitalName(visit.getHospital().getHospitalName())
+                        .userName(visit.getUser().getUsername())
+                        .diseaseName(visit.getDisease().getName())
+                        .build())
+                .collect(Collectors.toList());
+        return visits;
     }
 }

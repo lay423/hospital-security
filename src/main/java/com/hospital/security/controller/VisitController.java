@@ -29,4 +29,11 @@ public class VisitController {
         return ResponseEntity.ok().body(visitService.create(requestDto));
     }
 
+    @GetMapping("/users/{id}")
+    private ResponseEntity<List<VisitDto>> getVisitsByUserId(@PathVariable Integer id) {
+        log.info("hisdfsdf");
+        log.info("id:{}", id);
+        return ResponseEntity.ok().body(visitService.findByUserId(id.longValue()));
+    }
+
 }
