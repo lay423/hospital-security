@@ -3,6 +3,7 @@ package com.hospital.security.domain.dto;
 import com.hospital.security.domain.entity.Disease;
 import com.hospital.security.domain.entity.Hospital;
 import com.hospital.security.domain.entity.User;
+import com.hospital.security.domain.entity.Visit;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,4 +22,5 @@ public class VisitDto {
     private String userName;
     private String diseaseName;
     private int amount;
+
 }
