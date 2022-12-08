@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Getter
 @Builder
-public class Visit {
+public class Visit extends BaseEntity{
     @Id
     @GeneratedValue
     private Long id;
